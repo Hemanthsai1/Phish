@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>PHISHING WEBSITE DETECTION</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+    background-image: url("{% static 'images/Background.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: black;
+}
+
+#wrapper {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow-y: auto;
+    height: calc(100vh - 30px);
+    
+}
+
+#header {
+    margin-bottom: 20px;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#menu ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+#menu ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+    
+}
+
+.menu-item {
+    border: 2px solid rgb(35, 166, 232);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 15px;
+    background-color: aqua;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+
+#phishing-info {
+    margin-top: 30px;
+    text-align: left;
+    padding: 0 20px;
+    color: lime;
+    justify-content: center;
+}
+
+#phishing-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: aqua;
+
+}
+
+#phishing-info p {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+#type-phish {
+    margin-top: 50px;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+#type-phish div {
+    width: calc(50% - 20px);
+    margin-bottom: 20px;
+}
+
+#type-phish h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: aqua;
+}
+
+#type-phish h3::before {
+    content: "⚠";
+    margin-right: 5px;
+    color: aqua;
+}
+
+#type-phish p {
+    font-size: 20px;
+    line-height: 1.5;
+    color: lime;
+}
+
+#splash {
+    position: relative;
+}
+
+#info {
+    margin-top: 50px;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+#info .info-item {
+    width: calc(50% - 20px);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+#info .info-item h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: aqua;
+}
+
+#info .info-item p {
+    font-size: 20px;
+    line-height: 1.5;
+    color: lime;
+}
+
+
+.binary-number {
+    position: absolute;
+    color: lime;
+    font-size: 19px;
+    user-select: all;
+    animation: fall 4s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px); opacity: 0; }
+    100% { transform: translateY(100vh); opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+        <div id="logo">
+            <font size="5" color="lime" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+                Detection of Phishing Website using LGBM</font>
+        </div>
+        <div id="slogan">
+        </div>
+    </div>
+    <div id="menu">
+        <ul>
+            <li class="menu-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="menu-item"><a href="{% url 'AdminLogin' %}">Admin Login Here</a></li>
+        </ul>
+    </div>
+    
+    <div id="phishing-info">
+        <h2>What Is Phishing?</h2>
+        <p>
+            Phishing is the process of attempting to acquire sensitive information such as usernames, passwords, and credit card details by masquerading as a trustworthy entity using bulk email which tries to evade spam filters.
+            Emails claiming to be from popular social web sites, banks, auction sites, or IT administrators are commonly used to lure the unsuspecting public. It's a form of criminally fraudulent social engineering.
+        </p>
+    </div>
+    <div id="type-phish">
+        <div id="1">
+            <h3>Spear Phishing</h3>
+            <p>
+                Think of spear phishing as professional phishing. Classic phishing campaigns send mass emails to as many people as possible, but spear phishing is much more targeted. The hacker has either a certain individual(s) or organization they want to compromise and are after more valuable info than credit card data. They do research on the target in order to make the attack more personalized and increase their chances of success.
+            </p>
+        </div>
+        <div id="2">
+            <h3>Email/Spam</h3>
+            <p>
+                Using the most common phishing technique, the same email is sent to millions of users with a request to fill in personal details. These details will be used by the phishers for their illegal activities. Most of the messages have an urgent note which requires the user to enter credentials to update account information, change details, or verify accounts. Sometimes, they may be asked to fill out a form to access a new service through a link which is provided in the email.
+            </p>
+        </div>
+        <div id="3">
+            <h3>Web Based Delivery</h3>
+            <p>
+                Web based delivery is one of the most sophisticated phishing techniques. Also known as “man-in-the-middle,” the hacker is located in between the original website and the phishing system. The phisher traces details during a transaction between the legitimate website and the user. As the user continues to pass information, it is gathered by the phishers, without the user knowing about it.
+            </p>
+        </div>
+        <div id="4">
+            <h3>Link Manipulation</h3>
+            <p>
+                Link manipulation is the technique in which the phisher sends a link to a fake website. When the user clicks on the deceptive link, it opens up the phisher’s website instead of the website mentioned in the link. Hovering the mouse over the link to view the actual address stops users from falling for link manipulation.
+            </p>
+        </div>
+        <div id="5">
+            <h3>Keyloggers</h3>
+            <p>
+                Keyloggers refer to the malware used to identify inputs from the keyboard. The information is sent to the hackers who will decipher passwords and other types of information. To prevent key loggers from accessing personal information, secure websites provide options to use mouse clicks to make entries through the virtual keyboard.
+            </p>
+        </div>
+        <div id="6">
+            <h3>Smishing (SMS Phishing)</h3>
+            <p>
+                Phishing conducted via Short Message Service (SMS), a telephone-based text messaging service. A smishing text, for example, attempts to entice a victim into revealing personal information via a link that leads to a phishing website.
+            </p>
+        </div>
+    </div>
+    <h1 style="color: aqua; font-size: 30px; text-decoration: underline;">Ways to Find Out Phishing</h1>
+    <div id="info">
+        <div id="p1" class="info-item">
+            <h3>1. Check the URL</h3>
+            <p>Identifying phishing attacks involves checking the URL for validity: hover over it to verify the domain. Look for a padlock icon and ensure the URL starts with 'https://' or 'shttp://', indicating encryption with SSL. However, phishing sites increasingly use SSL, so remain cautious. Pay attention to address spelling; fraudsters mimic official sites but alter subtly, like replacing 'co.uk' with 'org' or 'O' with '0', e.g., www.yah00.org. Watch for extra characters or symbols absent in official addresses. </p>
+        </div>
+        <div id="p2" class="info-item">
+            <h3>2. Assess the content within a site</h3>
+            <p>Identifying a phishing website often involves assessing its quality compared to official sites. Official websites are meticulously crafted with sharp graphics, impeccable spelling, and polished experiences. In contrast, phishing sites may exhibit sub-standard quality despite brand similarities. Look for spelling mistakes, broken English, grammatical errors, or low-resolution images as red flags. Additionally, the absence of a "contact us" section is suspicious; official sites typically provide comprehensive contact details, including a postal address, phone number, email, and social media channels. If these details are missing, it's likely a phishing site.</p>
+        </div>
+        <div id="p3" class="info-item">
+            <h3>3. Check who owns the website</h3>
+            <p>All domains will have to register their web address so it's worth doing a WHOIS look-up to see who owns the website. This is a free service and will enable you to check who owns the website when it was created and will provide contact details for the site owner.
+            Suspicions should be raised if the website has been active for less than a year or if you think you're on the website of a leading brand, but the web address is registered to an individual in another country. If this is the case, it is more likely a phishing attack.</p>
+        </div>
+        <div id="p4" class="info-item">
+            <h3>4. Presence of @ or -(Hyphen) symbol and Number of dots in Hostname in URL</h3>
+            <p>If @ symbol present in URL then the feature is set to 1 else set to 0. Phishers add special symbol @ in the URL leads the browser to ignore everything preceding the “@” symbol and the real address often follows the “@” symbol.Phishing URLs have many dots in URL. For example http://shop.fun.amazon.phishing.com, in this URL phishing.com is an actual domain name, whereas use of “amazon” word is to trick users to click on it. Average number of dots in benign URLs.Phishers add dash symbol (-) to the domain name so that users feel that they are dealing with a legitimate webpage. For example Actual site is http://www.onlineamazon.com but phisher can create another fake website like http://www.online-amazon.com to confuse the innocent users</p>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (performance.navigation.type === 1) {
+        window.location.href = 'welcome.html';
+    }
+function createBinaryNumber() {
+    const binaryNumber = document.createElement('span');
+    binaryNumber.classList.add('binary-number');
+    binaryNumber.innerText = Math.round(Math.random());
+    binaryNumber.style.left = Math.random() * window.innerWidth + 'px';
+    binaryNumber.style.top = Math.random() * window.innerHeight + 'px';
+    binaryNumber.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random animation duration between 2 to 5 seconds
+    binaryNumber.style.opacity = Math.random(); // Random opacity
+    document.body.appendChild(binaryNumber);
+    setTimeout(() => {
+        binaryNumber.remove();
+    }, 5000); // Remove the binary number after 5 seconds
+}
+
+setInterval(createBinaryNumber, 10); // Create a new binary number every 10 milliseconds
+</script>
+</body>
+</html>

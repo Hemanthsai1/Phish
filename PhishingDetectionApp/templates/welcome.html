@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+    <title>Welcome to Hacker's World</title>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("{% static 'images/Background.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* This ensures the background covers the entire viewport height */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            overflow: hidden; /* Prevent scrolling */
+        }
+         /* Define the blinking cursor animation */
+         @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Apply the blinking cursor animation to the text */
+        .blinking-cursor {
+            display: inline-block;
+            width: 10px; /* Adjust the width of the cursor as needed */
+            height: 1em; /* Adjust the height of the cursor as needed */
+            background-color: lime; /* Color of the cursor */
+            animation: blink 1s infinite; /* Use the blink animation infinitely */
+        }
+
+        .binary-number {
+            position: absolute;
+            color: lime;
+            font-size: 20px;
+            user-select: none;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 0; } /* Start position and opacity */
+            100% { transform: translateY(100vh); opacity: 1; } /* End position and opacity */
+        }
+
+        #welcome-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: lime;
+            font-size: 30px;
+            font-family: 'Courier New', Courier, monospace;
+            opacity: 1;
+            transition: opacity 2s ease-in-out;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <div id="welcome-message" class="text-center">
+        <p>Welcome to the Hacker's World<span class="blinking-cursor"></span></p>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function createBinaryNumber() {
+            const binaryNumber = document.createElement('span');
+            binaryNumber.classList.add('binary-number');
+            binaryNumber.innerText = Math.round(Math.random());
+            binaryNumber.style.left = Math.random() * window.innerWidth + 'px';
+            binaryNumber.style.top = Math.random() * window.innerHeight + 'px';
+            binaryNumber.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random animation duration between 2 to 5 seconds
+            binaryNumber.style.opacity = Math.random(); // Random opacity
+            document.body.appendChild(binaryNumber);
+            setTimeout(() => {
+                binaryNumber.remove();
+            }, 5000); // Remove the binary number after 5 seconds
+        }
+
+        setInterval(createBinaryNumber, 10); // Create a new binary number every 10 milliseconds
+
+        // Fade out the welcome message after a delay
+        setTimeout(function() {
+            document.getElementById('welcome-message').style.opacity = '0';
+            // Redirect to index.html after fade out
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 2000); // Adjust the delay as needed (2000 milliseconds = 2 seconds)
+        }, 3000); // Adjust the delay as needed (3000 milliseconds = 3 seconds)
+    </script>
+</body>
+</html>

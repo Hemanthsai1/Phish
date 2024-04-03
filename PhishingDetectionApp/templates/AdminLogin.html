@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>PHISHING WEBSITE DETECTION</title>
+<link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1NLJB/cDfhxQ8FfqeJe9bD5VjYUAhEBvQh6EWyTtrGvGMkYgV/7JdR+K2cfUbp70gJhQn02pIoT25dsiGGcJ1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+     body {
+        background-image: url("{% static 'images/Background.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    /* Style for menu links */
+    #header {
+        padding: 20px 0; /* Add padding to the header */
+    }
+
+    #logo {
+        text-align: center;
+        margin-bottom: 10px; /* Add margin bottom to separate from the menu */
+    }
+
+    #menu ul {
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    #menu ul li {
+        display: inline;
+        margin-right: 15px;
+    }
+      
+
+    #admin {
+        margin-top: 0px;
+        margin-bottom: 5px; /* Decrease the margin */
+    }
+
+    #menu ul li a {
+        text-decoration: none;
+        color: black;
+        font-size: 20px;
+        font-weight: bolder;
+    }
+
+        #admin {
+        font-size: 30px; /* Decrease font size */
+        color: lime;
+        margin-right: 10px; /* Decrease margin right */
+        margin-bottom: 10px;
+    }
+
+
+.menu-item {
+    border: 2px solid rgb(35, 166, 232);
+    padding:5px;
+    border-radius: 10px;
+    margin-right: 10px; /* Decrease the margin between menu items */
+    background-color: aqua;
+    align-items: center;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+    align-items: center;
+    padding: 10px 10px; /*Adjust padding for the button */
+    transition: color 0.3s ease-in-out;
+}
+
+    #user,
+    #pass {
+        border-radius: 15px;
+        padding: 8px;
+        margin: 10px 10px;
+        border: 5px solid rgb(35, 166, 232);
+        outline: none; /* Remove the default outline */
+        font-size: 16px;
+        width: 300px; /* Set the width of the input fields */
+    }
+
+    #user::placeholder,
+    #pass::placeholder {
+        color: gray; /* Placeholder text color */
+        font-size: 14px;
+    }
+
+    #user:focus,
+    #pass:focus {
+        border-color: lime; /* Change border color on focus */
+    }
+
+    #login-btn {
+        border-radius: 15px;
+        padding: 10px 20px;
+        border: 2px solid rgb(35, 166, 232);
+        background-color: black;
+        color: rgb(35, 166, 232);
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.1ms ease-in-out; /* Add transition effect */
+        margin-top: 20px;
+    }
+
+    #login-btn:hover {
+        background-color: rgb(35, 166, 232); /* Change background color on hover */
+        color: black;
+        font-weight: bold;
+    }
+
+    #eye-icon {
+        position: absolute;
+        right: 15px; /* Adjust position */
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        width: 20px; /* Set width of eye icon */
+        height: auto; /* Maintain aspect ratio */
+        margin-right: 10px;
+    }
+    .binary-number {
+    position: absolute;
+    color: lime; /* Bright lime color */
+    font-size: 19px; /* Larger font size */
+    user-select: all;
+    animation: fall 4s linear infinite; /* Faster falling animation */
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px); opacity: 0; }
+    100% { transform: translateY(100vh); opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+        <div id="logo">
+            <center><font size="5" color="lime" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+                    Detection of Phishing Website using LGBM</font></center>
+        </div>
+    </div>
+    <div id="menu">
+        <ul class="nav justify-content-center">
+            <li class="menu-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+            <!-- <li class="first current_page_item"><a href="{% url 'AdminLogin' %}">Admin Login Here</a></li> -->
+        </ul>
+    </div>
+    <form name="f1" method="post" action={% url 'AdminLoginAction' %} onsubmit="return validate(this);" class="mt-5">
+        <br/>{% csrf_token %}<br/>
+        <center><h5 id="admin"><b>Admin Login</b></h5></center>
+        <font size="" color="red"><center>{{ data|safe }}</center></font>
+        <table align="center" width="30">
+            <tr><td><font size="5px" color="lime">Username:</b></td><td><input type="text" name="t1" id="user" placeholder="Enter Username" class="form-control" /></td></tr>
+            <tr><td><font size="5px" color="lime">Password:</b></td><td style="position: relative;"><input type="password" name="t2" id="pass" placeholder="Enter Password" class="form-control" /><img id="eye-icon" src="{% static 'images/closeeye.png' %}" onclick="togglePasswordVisibility()" /></td></tr>
+            <tr><td></td><td><input id="login-btn" type="submit" value="Login" class="btn btn-primary"></td></tr>
+        </table>
+    </form>
+</div>
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script language="javascript">
+     if (performance.navigation.type === 1) {
+         window.location.href = 'welcome.html';
+    }
+    function createBinaryNumber() {
+        const binaryNumber = document.createElement('span');
+        binaryNumber.classList.add('binary-number');
+        binaryNumber.innerText = Math.round(Math.random());
+        binaryNumber.style.left = Math.random() * window.innerWidth + 'px';
+        binaryNumber.style.top = Math.random() * window.innerHeight + 'px';
+        binaryNumber.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random animation duration between 2 to 5 seconds
+        binaryNumber.style.opacity = Math.random(); // Random opacity
+        document.body.appendChild(binaryNumber);
+        setTimeout(() => {
+            binaryNumber.remove();
+        }, 5000); // Remove the binary number after 5 seconds
+    }
+
+    setInterval(createBinaryNumber, 10);
+
+    function validate(formObj) {
+        if (formObj.t1.value.length === 0) {
+            alert("Please Enter User ID");
+            formObj.t1.focus();
+            return false;
+        }
+        if (formObj.t2.value.length === 0) {
+            alert("Please Enter Password");
+            formObj.t2.focus();
+            return false;
+        }
+        return true;
+    }
+
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("pass");
+        var eyeIcon = document.getElementById("eye-icon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.src = "{% static 'images/openeye.png' %}"; // Change src to open eye image
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.src = "{% static 'images/closeeye.png' %}"; // Change src to close eye image
+        }
+    }
+</script>
+</body>
+</html>
